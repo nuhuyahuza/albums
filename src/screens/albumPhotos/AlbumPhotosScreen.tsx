@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
-  FlatList,
   Text,
   ActivityIndicator,
   TouchableOpacity,
@@ -16,16 +15,15 @@ import Swiper from "react-native-swiper";
 import { RootState, AppDispatch } from "../../redux/store";
 import { fetchAlbumPhotos, deletePhoto } from "../../redux/photoSlice";
 import albumPhotosScreenStyles from "./AlbumPhotosScreenStyles";
-import { useNavigation } from "@react-navigation/native";
-import { ScrollView } from "react-native-gesture-handler";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 //interface for Album Photos
 interface AlbumPhotosScreenProps {
   route: { params: { albumId: number; albumTitle?: string } };
-  navigation: any;
+  navigation: NavigationProp<Record<string, object>>;
 }
 
-const AlbumPhotosScreen: React.FC<AlbumPhotosScreenProps> = ({ route }) => {
+const AlbumPhotosScreen = ({ route }: AlbumPhotosScreenProps ) => {
   const dispatch: AppDispatch = useDispatch();
   const { albumId, albumTitle = "Album" } = route.params;
   const navigation = useNavigation();
@@ -97,82 +95,74 @@ const AlbumPhotosScreen: React.FC<AlbumPhotosScreenProps> = ({ route }) => {
     );
   }
 
-  const renderItem = ({ item }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => handleImageTap(item.id)}
-      >
-        <View style={albumPhotosScreenStyles.item}>
-          <Image
-            source={{ uri: item.thumbnailUrl }}
-            style={{ width: "100%", height: "100%", resizeMode: "contain" }}
-          />
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <SafeAreaView>
-        <View style={{flex:1,flexDirection:"row", flexWrap:"wrap",justifyContent:"space-between"}}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
         {photos.map((photo) => (
-                 <TouchableOpacity
+          <TouchableOpacity
             onPress={() => handleImageTap(photo.id)}
-            key={photo.id} 
-               >
-                  <Image
-                     source={{ uri: photo.thumbnailUrl }}
-                     style={{ width: 100, height: 100, resizeMode: "contain" }}
-                   />
-               </TouchableOpacity>
-              ))}
-        </View>
-        <Modal
-          style={albumPhotosScreenStyles.photoModalView}
-          isVisible={isModalVisible}
-        >
+            key={photo.id}
+          >
+            <Image
+              source={{ uri: photo.thumbnailUrl }}
+              style={{ width: 100, height: 100, resizeMode: "contain" }}
+            />
+          </TouchableOpacity>
+        ))}
+      </View>
+      <Modal
+        style={albumPhotosScreenStyles.photoModalView}
+        isVisible={isModalVisible}
+      >
         <SafeAreaView style={{ flex: 1 }}>
-        <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                margin: 0
-              }}
-            >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              margin: 0,
+            }}
+          >
             <IconButton iconColor="red" icon="close" onPress={closeModal} />
-            </View>
-            <Swiper
-              showsButtons={false}
-              loop={false}
-              showsPagination={false}
-              index={photos.findIndex((photo) => photo.id === selectedPhotoId)}
-            >
-              {photos.map((photo) => (
-                <View key={photo.id} style={{ width: "100%" }}>
-                  <Image
-                    source={{ uri: photo.thumbnailUrl }}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      resizeMode: "contain",
-                    }}
-                  />
-                </View>
-              ))}
-            </Swiper>
+          </View>
+          <Swiper
+            showsButtons={false}
+            loop={false}
+            showsPagination={false}
+            index={photos.findIndex((photo) => photo.id === selectedPhotoId)}
+          >
+            {photos.map((photo) => (
+              <View key={photo.id} style={{ width: "100%" }}>
+                <Image
+                  source={{ uri: photo.thumbnailUrl }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    resizeMode: "contain",
+                  }}
+                />
+              </View>
+            ))}
+          </Swiper>
 
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                margin: 10,
-                bottom: 100,
-              }}
-            >
-              <IconButton icon="delete" onPress={handleDelete} />
-            </View>
-          </SafeAreaView>
-        </Modal>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              margin: 10,
+              bottom: 100,
+            }}
+          >
+            <IconButton icon="delete" onPress={handleDelete} />
+          </View>
+        </SafeAreaView>
+      </Modal>
     </SafeAreaView>
   );
 };

@@ -6,16 +6,14 @@ import RootNavigator from './src/navigation/RootNavigator';
 import store from './src/redux/store';
 import { StatusBar } from 'react-native';
 
-// Define your custom light theme
+// Default Theme
 const lightTheme = {
   ...DefaultTheme,
-  // Add any additional customizations for the light theme here
 };
 
-// Define your custom dark theme
+// custom dark theme
 const darkTheme = {
   ...MD3DarkTheme,
-  // Add any additional customizations for the dark theme here
 };
 
 const App: React.FC = () => {

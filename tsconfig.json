@@ -1,7 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es6",
-  "module": "esnext",
-  "jsx": "react",},
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+},
+"include": [
+  "src/**/*", 
+  "**/*.ts",
+    "**/*.tsx", //source files or directories
+  "./.eslintrc.js",  // ESLint configuration file
+  "babel.config.js",
+],
   "extends": "expo/tsconfig.base"
 }

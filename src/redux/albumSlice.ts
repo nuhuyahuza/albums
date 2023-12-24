@@ -4,9 +4,15 @@ import axios from 'axios';
 interface Album {
   id: number;
   title: string;
-  artist: string;
   randomImage: string;
   imageUri: string;
+}
+interface Photo {
+  albumId: number;
+  id: number;
+  title: string;
+  url: string;
+  thumbnailUrl: string;
 }
 
 interface AlbumState {
@@ -21,7 +27,7 @@ const initialState: AlbumState = {
   error: null,
 };
 
-const getRandomImage = (photos: any[]) => {
+const getRandomImage = (photos: Photo[]) => {
     if (photos.length === 0) {
       return '';
     }
@@ -39,13 +45,14 @@ export const fetchAlbums = createAsyncThunk('album/fetchAlbums', async () => {
       const photosData = photosResponse.data;
       const albumsWithRandomImage: Album[] = albumsData.map((album: Album) => {
         // Filter photos associated with the current album
-        const albumPhotos = photosData.filter((photo: any) => photo.albumId === album.id);
-        const randomImage = getRandomImage(albumPhotos);
+        const albumPhotos = photosData.filter((photo: Photo) => photo.albumId === album.id);
+        const randomImage: string = getRandomImage(albumPhotos);
         return { ...album, randomImage };
       });
   
-      return albumsWithRandomImage;
-  } catch (error) {
+    return albumsWithRandomImage;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error:any) {
     throw error.albumsResponse.data;
   }
 });
@@ -54,7 +61,8 @@ export const deleteAlbum = createAsyncThunk('album/deleteAlbum', async (albumId:
   try {
     await axios.delete(`https://jsonplaceholder.typicode.com/albums/${albumId}`);
     return albumId;
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error:any) { 
     throw error.response.data;
   }
 });
