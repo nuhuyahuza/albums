@@ -25,7 +25,8 @@ export const fetchAlbumPhotos = createAsyncThunk('photo/fetchAlbumPhotos', async
   try {
     const response = await axios.get(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`);
     return response.data;
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error:any) {
     throw error.response.data;
   }
 });
@@ -34,7 +35,8 @@ export const deletePhoto = createAsyncThunk('photo/deletePhoto', async (photoId:
   try {
     await axios.delete(`https://jsonplaceholder.typicode.com/photos/${photoId}`);
     return photoId;
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error:any) {
     throw error.response.data;
   }
 });

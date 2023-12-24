@@ -27,30 +27,12 @@ const initialState: AlbumState = {
   error: null,
 };
 
-const getRandomImage = (photos: Photo[]) => {
-    if (photos.length === 0) {
-      return '';
-    }
-    const randomIndex = Math.floor(Math.random() * photos.length);
-    return photos[randomIndex].thumbnailUrl;
-  };
-
 export const fetchAlbums = createAsyncThunk('album/fetchAlbums', async () => {
   try {
     // Fetch albums
     const albumsResponse = await axios.get('https://jsonplaceholder.typicode.com/albums');
     const albumsData = albumsResponse.data;
-      // Fetch photos
-    const photosResponse = await axios.get('https://jsonplaceholder.typicode.com/photos');
-      const photosData = photosResponse.data;
-      const albumsWithRandomImage: Album[] = albumsData.map((album: Album) => {
-        // Filter photos associated with the current album
-        const albumPhotos = photosData.filter((photo: Photo) => photo.albumId === album.id);
-        const randomImage: string = getRandomImage(albumPhotos);
-        return { ...album, randomImage };
-      });
-  
-    return albumsWithRandomImage;
+    return albumsData;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error:any) {
     throw error.albumsResponse.data;

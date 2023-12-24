@@ -10,14 +10,13 @@ type RootStackParamList = {
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
-
+// Navigation Between Screens Setup
 const RootNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} options={{
-          headerTitle: "Albums",
-        }}/>
+        <Stack.Screen name="Home" component={HomeScreen}
+          options={{ headerTitle: "Albums" }}/>
         <Stack.Screen name="AlbumPhotos" component={AlbumPhotosScreen} />
       </Stack.Navigator>
     </NavigationContainer>

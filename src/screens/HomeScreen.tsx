@@ -79,7 +79,6 @@ const HomeScreen = () => {
               onPress={() =>
                 navigation.navigate("AlbumPhotos", {
                   albumId: item.id,
-                  randomImage: item.randomImage,
                   albumTitle: item.title,
                 })
               }
