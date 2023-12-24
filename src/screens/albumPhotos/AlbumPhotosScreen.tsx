@@ -98,12 +98,7 @@ const AlbumPhotosScreen = ({ route }: AlbumPhotosScreenProps ) => {
   return (
     <SafeAreaView>
       <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
+        style={albumPhotosScreenStyles.photosContainer}
       >
         {photos.map((photo) => (
           <TouchableOpacity
@@ -112,7 +107,7 @@ const AlbumPhotosScreen = ({ route }: AlbumPhotosScreenProps ) => {
           >
             <Image
               source={{ uri: photo.thumbnailUrl }}
-              style={{ width: 100, height: 100, resizeMode: "contain" }}
+              style={{ width: 200, height: 200, resizeMode: "contain" , margin: 1}}
             />
           </TouchableOpacity>
         ))}
@@ -152,13 +147,7 @@ const AlbumPhotosScreen = ({ route }: AlbumPhotosScreenProps ) => {
           </Swiper>
 
           <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              margin: 10,
-              bottom: 100,
-            }}
-          >
+            style={{ flexDirection: "row", justifyContent: "center", margin: 10, bottom: 100}}>
             <IconButton icon="delete" onPress={handleDelete} />
           </View>
         </SafeAreaView>

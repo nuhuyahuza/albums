@@ -33,9 +33,11 @@ const albumPhotosScreenStyles: albumPhotosScreenStyles = StyleSheet.create({
     alignItems: "center",
   },
   photosContainer: {
-    padding: 5,
-    margin: "auto",
-    width: "auto",
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginBottom:10,
+    justifyContent: "space-around",
   },
 });
 
