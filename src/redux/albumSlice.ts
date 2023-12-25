@@ -7,13 +7,6 @@ interface Album {
   randomImage: string;
   imageUri: string;
 }
-interface Photo {
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-}
 
 interface AlbumState {
   albums: Album[];
